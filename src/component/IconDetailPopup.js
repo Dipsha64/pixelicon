@@ -70,32 +70,32 @@ function IconDetailPopup({ show, onClose, popupDetails, sizeValue, colorValue })
 
     return ( 
         <>
-        <div className={`fixed inset-0 flex items-center justify-center ${show ? '' : 'hidden'}`}>
-            <div className="fixed inset-0 bg-gray-800 opacity-50" onClick={onClose}></div>
-            <div className="bg-white py-2 px-2 rounded-lg shadow-lg z-10 relative lg:w-1/4 xl:w-1/4 md:w-1/4">
+        <div className={`fixed inset-0 flex items-center transform transition-all duration-150 ease-out scale-0 justify-center ${show ? '' : 'hidden'}`}>
+            <div className="fixed inset-0 bg-gray-800 opacity-50 transform transition-all duration-150 ease-out scale-0" onClick={onClose}></div>
+            <div className={`bg-white py-2 px-2 rounded-lg shadow-lg z-10 relative lg:w-1/2 xl:w-1/4 xl:max-w-1/4 md:w-1/2 sm:w-full transform transition-all duration-150 ease-out scale-0 ${show ? 'scale-100' : 'scale-90'}`}>
                 <div className="flex justify-between">
                     <span></span>
                     <IoClose className="cursor-pointer" size={'2rem'} onClick={onClose}/> 
                 </div>
                 <div className="flex w-full gap-5 mx-5 mb-8">
-                    <div className="1/5 border-2 h-28 w-28 border-slate-400 rounded-md flex justify-center items-center">
+                    <div className="lg:w-1/5 border-2 h-28 lg:h-32 w-28 lg:w-32 border-slate-400 rounded-md flex justify-center items-center">
                         <div className="" style={{ width: `${sizeValue}px`, height: `${sizeValue}px` }}
                             dangerouslySetInnerHTML={{ __html: modifySvg(popupDetails.imageData, sizeValue, sizeValue, colorValue) }}
                         />
                     </div> 
-                    <div className="4/5 grid gap-y-3">
-                        <div className="inline-flex gap-4">
+                    <div className="lg:w-4/5 grid gap-y-3">
+                        <div className="inline-flex flex-col gap-4 lg:flex-row">
                             <div className="flex justify-center items-center"><span className="text-lg font-semibold leading-10">{popupDetails.name}</span></div>
                             <div className="flex justify-center items-center cursor-pointer">
                                 { copied ? <MdDownloadDone size={'1.5rem'}/> : <FaRegCopy size={'1.3rem'} onClick={(e) => copySvgImage(e,popupDetails.imageData)}/>}
                             </div>
                         </div>
-                        <div className="inline-flex gap-4">
-                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 w-24 cursor-pointer" onClick={() => downloadsvg()}>
+                        <div className="inline-flex flex-col lg:flex-row gap-4">
+                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 lg:h-12 xl:max-w-24 w-24 lg:w-28 cursor-pointer" onClick={() => downloadsvg()}>
                                 <IoMdDownload/>
                                 <span className="pl-2">SVG</span>
                             </div>
-                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 w-24 cursor-pointer" onClick={() => downloadPng()}>
+                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 lg:h-12 w-24 xl:max-w-24 lg:w-28 cursor-pointer" onClick={() => downloadPng()}>
                                 <IoMdDownload/>
                                 <span className="pl-2">PNG</span>
                             </div>
