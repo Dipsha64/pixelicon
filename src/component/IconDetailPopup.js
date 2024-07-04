@@ -3,6 +3,7 @@ import { IoMdDownload } from "react-icons/io";
 import { FaRegCopy } from "react-icons/fa6";
 import React, { useState } from "react";
 import { MdDownloadDone } from "react-icons/md";
+import { saveAs } from 'file-saver';
 
 function IconDetailPopup({ show, onClose, popupDetails, sizeValue, colorValue }) {
     const [ copied, setCopied ] = useState(false);
@@ -46,12 +47,32 @@ function IconDetailPopup({ show, onClose, popupDetails, sizeValue, colorValue })
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     }
+    const downloadPng = () => {
+        const modifiedSvg = applyColorToSvg(popupDetails.imageData);
+        const svg = new Blob([modifiedSvg], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svg);
+        
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+    
+          canvas.toBlob(blob => {
+            saveAs(blob, `${popupDetails.name}.png`);
+            URL.revokeObjectURL(url);
+          }, 'image/png');
+        };
+    };
 
     return ( 
         <>
         <div className={`fixed inset-0 flex items-center justify-center ${show ? '' : 'hidden'}`}>
             <div className="fixed inset-0 bg-gray-800 opacity-50" onClick={onClose}></div>
-            <div className="bg-white py-2 px-2 rounded-lg shadow-lg z-10 w-1/4">
+            <div className="bg-white py-2 px-2 rounded-lg shadow-lg z-10 relative lg:w-1/4 xl:w-1/4 md:w-1/4">
                 <div className="flex justify-between">
                     <span></span>
                     <IoClose className="cursor-pointer" size={'2rem'} onClick={onClose}/> 
@@ -74,8 +95,8 @@ function IconDetailPopup({ show, onClose, popupDetails, sizeValue, colorValue })
                                 <IoMdDownload/>
                                 <span className="pl-2">SVG</span>
                             </div>
-                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 w-24 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="filter-list"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M11 18h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1zm4 6h10c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1z"></path></svg>
+                            <div className="flex justify-center items-center border-solid border-2 bg-slate-200 rounded-md h-10 w-24 cursor-pointer" onClick={() => downloadPng()}>
+                                <IoMdDownload/>
                                 <span className="pl-2">PNG</span>
                             </div>
                         </div>

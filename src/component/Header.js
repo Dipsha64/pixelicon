@@ -29,7 +29,7 @@ function Header() {
             </div>
             {isOpen ? (
             <div className="xl:hidden">
-                <div className="space-y-3 divide-y divide-gray-200 mb-3 mx-24">
+                <div className="divide-gray-200 mx-24">
                     <form>
                         <div className="rounded-lg flex px-3 py-2 bg-slate-200 h-16">
                             <div className="p-2">
