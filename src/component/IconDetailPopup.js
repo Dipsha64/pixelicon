@@ -70,9 +70,9 @@ function IconDetailPopup({ show, onClose, popupDetails, sizeValue, colorValue })
 
     return ( 
         <>
-        <div className={`fixed inset-0 flex items-center transform transition-all duration-150 ease-out scale-0 justify-center ${show ? '' : 'hidden'}`}>
-            <div className="fixed inset-0 bg-gray-800 opacity-50 transform transition-all duration-150 ease-out scale-0" onClick={onClose}></div>
-            <div className={`bg-white py-2 px-2 rounded-lg shadow-lg z-10 relative lg:w-1/2 xl:w-1/4 xl:max-w-1/4 md:w-1/2 sm:w-full transform transition-all duration-150 ease-out scale-0 ${show ? 'scale-100' : 'scale-90'}`}>
+        <div className={`fixed inset-0 flex items-center justify-center ${show ? '' : 'hidden'}`}>
+            <div className="fixed inset-0 bg-gray-800 opacity-50" onClick={onClose}></div>
+            <div className={`bg-white py-2 px-2 rounded-lg shadow-lg z-10 relative lg:w-1/2 xl:w-1/4 xl:max-w-1/4 md:w-1/2 sm:w-full ${show ? 'scale-100' : 'scale-90'}`}>
                 <div className="flex justify-between">
                     <span></span>
                     <IoClose className="cursor-pointer" size={'2rem'} onClick={onClose}/> 
